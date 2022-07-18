@@ -1,0 +1,75 @@
+y = imread('C:\Users\Khurram\Desktop\Coding\Computer Vision\me.jpg');
+
+%plotting coloured image
+subplot(2,5,1);
+imshow(y); title('coloured');
+
+%histogram of coloured image
+subplot(2,5,2);
+M=histogram(y); title('cl_hist');
+
+%converting RGB image to Grayscale
+subplot(2,5,6)
+J=rgb2gray(y);
+imshow(J); title('gray');
+
+%histogram of grayscale image
+subplot(2,5,7);
+imhist(J); title('gray_hist');
+
+%histogram of red channel
+red_channel =  y(:,:,1);
+subplot(2,5,3);
+imhist(red_channel); title('rc');
+ 
+%histogram of green channel
+green_channel = y(:,:,2);
+subplot(2,5,4);
+imhist(green_channel); title('gc');
+ 
+%histogram of blue channel
+blue_channel = y(:,:,3);
+subplot(2,5,5);
+imhist(blue_channel); title('bc');
+
+%histogram of equalized red channel
+subplot(2,5,8);
+K=histeq(red_channel);
+imhist(K);title('rc_eq');
+
+%histogram of equalized green channel
+subplot(2,5,9);
+K=histeq(green_channel);
+imhist(K);title('gc_eq');
+
+%histogram of equalized blue channel
+subplot(2,5,10);
+K=histeq(blue_channel);
+imhist(K);title('bc_eq');
+
+%Adjusting Brightness and Contrast
+figure
+subplot(1,2,1);
+imshow(y);title('original image');
+subplot(1,2,2);
+A=y*0.8;
+imshow(A);title('adjusted contrast');
+
+RGB2 = imadjust(y,[.2 .3 0; .6 .7 1],[]);
+figure
+subplot(1,2,1);
+imshow(RGB2);title('with imadjust');
+imadjust(J);
+subplot(1,2,2);
+imshow(J);title('with imadjust');
+
+
+%Gamma Correction
+figure
+N = imadjust(J,[],[],0.8);
+imshowpair(J,N,'montage');
+
+%Negative Image
+negative_image = 255-y;
+figure
+imshow(negative_image)
